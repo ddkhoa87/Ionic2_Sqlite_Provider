@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      SQLite Storage Provider.
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button round (click)="addPerson('Dan')">
+        <ion-icon name="add-circle"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-buttons>
+    <button ion-button round full (click)="refreshView()">Refresh</button>
+  </ion-buttons>
+  <ion-list>
+    <ion-item *ngFor="let person of itemList">
+      {{person.name}}
+    </ion-item>
+  </ion-list>
+</ion-content>
