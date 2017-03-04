@@ -76,7 +76,7 @@ The SQLite code is straightforward and self-explaining. The `.then( (*some_varia
 ### Initializing ***app.module***
 
 The *src/app/app.module.ts* is like a management center for all modules being used in a project. Hence, it should know where the source code for a module is:
-![Referring to database from app](photos/app2provider.png)
+<img src="photos/app2provider.png" alt="Referring to database from app." width=15% height=15%/>
 ```
 import { Database } from "../providers/database";
 ```
@@ -89,6 +89,7 @@ Note that the relative path to the source file omits *.ts*. Ionic 2 would know a
 ### Initializing ***home*** page
 
 Our *home* page will take the name from user input and insert into database. Once the user clicks the Refresh View button, data retrieved from database will be listed on the screen for viewing. So, obviously, the *home* page needs to know the class providing this storage service and its source file location in the *src/pages/home/home.ts*:
+<img src="photos/home2provider.png" alt="Referring to database from home." width=15% height=15%/>
 ```
 import { Database } from "../../providers/database";
 ```
