@@ -132,11 +132,11 @@ Finally, all the names in database will need to be distributed into a list view.
 ```html
 <ion-list>
   <ion-item *ngFor="let person of itemList">
-    \\{{person.name}}
+    \{\{person.name}}
   </ion-item>
 </ion-list>
 ```
-
+(The \\ in the above code snippet is because of GitHub Page inconsistent format! The actual code is {{person.name}})
 #### Linking *HomePage* GUI components to class variables and methods
 
 Source file: *src/pages/home/home.ts*
