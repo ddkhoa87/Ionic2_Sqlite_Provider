@@ -1,1 +1,3 @@
 theme: jekyll-theme-cayman
+title: Testing Sqlite Provider in the new Ionic 2 framework.
+description: The new Ionic 2 has re-organized the structure of a project. There are plenty of posts relating to Sqlite Provider but not easy to find one dedicated for this new structure. This project is just a simple tutorial on this subject.
