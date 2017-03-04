@@ -96,7 +96,7 @@ Our *HomePage* receives the name from user input and inserts into database. Once
 ```Javascript
 import { Database } from "../../providers/database";
 ```
-Create and object and call the *Database*'s constructor through the *HomePage*'s constructor.
+Create an object and call the *Database*'s constructor through the *HomePage*'s constructor.
 ```Javascript
 constructor(public navCtrl: NavController, private database: Database)
 ```
@@ -106,13 +106,13 @@ Save all changes have been made so far and take a look at the console window. Th
 
 ### And the rest
 
-Up to this point, we have gone through all major differences. The rest is similar to what it used to be. I will keep it brief just to make this tutorial completed.
+Up to this point, we have gone through all major changes need to be made. The rest is similar to what it used to be. I will keep it brief just to make this tutorial completed.
 
 #### Adding GUI components to the *HomePage*
 
 Source file: *src/pages/home/home.html*
 
-On the *HomePage* screen, use will type a name into an input field, the *HomePage* maintains a link between this input field and its variable `name`.
+On the *HomePage* screen, user will type a name into an input field, the *HomePage* maintains a link between this input field and its variable `name`.
 ```html
 <ion-item>
   <ion-label floating>Name</ion-label>
@@ -120,7 +120,7 @@ On the *HomePage* screen, use will type a name into an input field, the *HomePag
 </ion-item>
 ```
 It then needs two buttons for adding the new name to database and refreshing the view. These two buttons link to corresponding button-click event handling methods.
-```HTML
+```html
 <div padding>
   <ion-segment>
     <ion-segment-button (click)="addPerson()">Add</ion-segment-button>
@@ -142,7 +142,7 @@ Finally, all the names in database will need to be distributed into a list view.
 Source file: *src/pages/home/home.ts*
 
 Declare two variables for holding a name from user input and a list of names retrieved from database.
-```Javascript
+```javascript
 public itemList: Array<Object>;
 private name: string;
 ```
