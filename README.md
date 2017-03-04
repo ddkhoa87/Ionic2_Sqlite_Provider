@@ -132,7 +132,7 @@ Finally, all the names in database will need to be distributed into a list view.
 ```html
 <ion-list>
   <ion-item *ngFor="let person of itemList">
-    \{{person.name}}
+    \{\{person.name\}\}
   </ion-item>
 </ion-list>
 ```
