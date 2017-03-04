@@ -136,7 +136,7 @@ Finally, all the names in database will need to be distributed into a list view.
   </ion-item>
 </ion-list>
 ```
-(The \\ in the above code snippet is because of GitHub Page inconsistent format! The actual code is \{{person.name}})
+(The \\\\ in the above code snippet is because of GitHub Page inconsistent format! Just ignore them in your real code.)
 #### Linking *HomePage* GUI components to class variables and methods
 
 Source file: *src/pages/home/home.ts*
