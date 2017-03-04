@@ -4,16 +4,16 @@ Recently, Ionic 2 has re-organized its project structure. All the source code ar
 <img src="photos/overview.png" alt="New project structure." width="20%" height="20%"/>
 
 - ***app***: Listing of user-created and system-defined components. A component is similar to a class or package in other languages.
-- ***pages***: Each page is equivalent to a screen users will see when using the app on mobile phone. Users can navigate back and forth among pages.
-- ***providers***: Event handlers, error handlers, database..., which handle underlying processes that users won't see or interact on the phone.
+- ***pages***: Each page is equivalent to a screen that users will see when using the app on mobile phone. Users can navigate back and forth among pages.
+- ***providers***: Event handlers, error handlers, database... which handle underlying processes that users won't see on the phone.
 
-For simplicity, this tutorial demonstrates with an one-page app having a button for adding a name from an input field into the database (Sqlite storage) and another button for refreshing the view to reflect the new update.
+For simplicity, this tutorial demonstrates with an one-page app having a button for adding a name from an input field into a database (Sqlite storage) and another button for refreshing the view to reflect the new update.
 
 <img src="photos/homepage.png" width="40%" height="40%"/>
 
 ### Starting with a blank Ionic 2 project
 
-All the steps to initiate a new Ionic 2 blank project to run on ios or android platform can be found everywhere.
+All the steps to initiate a new Ionic 2 blank project for running on ios or android platform can be found anywhere.
 ```
 ionic start SqliteStorage blank --v2
 cd SqliteStorage
@@ -23,7 +23,7 @@ To add SQLite plugin into the project:
 ```
 ionic plugin add cordova-sqlite-storage
 ```
-We are planning to use SQLite as a *provider*. A provider is just a class, but not something users can see on the screen. A class handling what can be seen and iteracted is called a *page*. A class providing additional underlying support such as database storage, error or event handling is listed as providers, or a service provider.
+We are planning to use SQLite as a *provider*. A provider is just a class, but not something users can see on the screen. A class handling what can be seen and interacted is called a *page*. A class providing additional underlying support such as database storage, error or event handling is listed as providers, or a service provider.
 
 Generate a provider class by this command `ionic -g provider <class_source_file_name>`. I will name this file as *database*, for example, and its class inside will be auto-generated as *class Database* subsequently:
 ```
@@ -33,27 +33,27 @@ Some sources explain that SQLite has not been supported in ios or android simula
 ```
 ionic run ios -l -s -c
 ```
-For the purpose of debugging, indicating `-l -s -c` will output log information onto the console and update the emulation as soon as a source file is saved. To target a specific device model, e.g. iPhone 6, add `--target="iphone-6"`.
+For debugging purpose, indicating `-l -s -c` to output log information onto the console and update the emulation as soon as a source file is saved. To target a specific device model, e.g. iPhone 6, add `--target="iphone-6"`.
 
-### Initializing Sqlite Storage
+### Initializing SQLite Storage
 
-Open the `src\providers\database.ts`, import neccessary modules:
-```
+Open the `src\providers\database.ts` nd import neccessary modules:
+```Javascript
 import { Platform } from 'ionic-angular';
 import { SQLite } from 'ionic-native';
 ```
 *SQLite* is of course a must-have. The *Platform* is required for checking the readiness before opening a database for further access.
 
 Declare a new SQLite storage variable:
-```
+```Javascript
 private storage : SQLite;
 ```
 Supply an additional parameter `platform: Platform` to the constructor:
-```
+```Javascript
 constructor(public http: Http, platform: Platform)
 ```
 Make sure the platform is ready beforehand:
-```
+```Javascript
 platform.ready()
 .then(() => {
     this.storage = new SQLite();
@@ -78,11 +78,11 @@ The SQLite code is straightforward and self-explaining. The `.then( (*some_varia
 The *src/app/app.module.ts* is like a management center for all modules being used in a project. Hence, it should know where the source code for a module is:
 
 <img src="photos/app2provider.png" alt="Referring to database from app." width="20%" height="20%"/>
-```
+```Javascript
 import { Database } from "../providers/database";
 ```
 and the category of it. In this case, our *Database* class is a provider:
-```
+```Javascript
 providers: [Database, *other providers*]
 ```
 Note that the relative path to the source file omits *.ts*. Ionic 2 would know all the code are in *type-script*.
@@ -92,11 +92,11 @@ Note that the relative path to the source file omits *.ts*. Ionic 2 would know a
 Our *HomePage* receives the name from user input and insert into database. Once the user clicks the Refresh View button, data retrieved from database will be listed on the screen for viewing. So, obviously, the *HomePage* needs to know the class providing this storage service and its source file location in the *src/pages/home/home.ts*:
 
 <img src="photos/home2provider.png" alt="Referring to database from home." width="20%" height="20%L"/>
-```
+```Javascript
 import { Database } from "../../providers/database";
 ```
 Create and object and call the *Database*'s constructor through the *HomePage*'s constructor.
-```
+```Javascript
 constructor(public navCtrl: NavController, private database: Database)
 ```
 Save all changes have been made so far and take a look at the console window. The SQLite service provider would print some log information if it is able to star properly.
@@ -112,14 +112,14 @@ Up to this point, this post has gone through the major changes. The rest is simi
 Source file: src/pages/home/home.html
 
 On the *HomePage* screen, use will type a name into an input field, the *HomePage* maintains a link between this input field and its variable.
-```
+```html
 <ion-item>
   <ion-label floating>Name</ion-label>
   <ion-input type="text" [(ngModel)]="name"></ion-input>
 </ion-item>
 ```
 It then needs two buttons for adding the new name to database and refreshing the view. These two buttons link to corresponding button-click event handling methods.
-```
+```HTML
 <div padding>
   <ion-segment>
     <ion-segment-button (click)="addPerson()">Add</ion-segment-button>
@@ -128,7 +128,7 @@ It then needs two buttons for adding the new name to database and refreshing the
 </div>
 ```
 Finally, all the names are distributed into a list view. Assume that `itemList` is an array of *person* objects having a single information which is its name.
-```
+```html
 <ion-list>
   <ion-item *ngFor="let person of itemList">
     {{person.name}}
@@ -141,20 +141,20 @@ Finally, all the names are distributed into a list view. Assume that `itemList` 
 Source file: src/pages/home/home.ts
 
 Declare two variables for holding a name from user input and a list of names retrieved from database.
-```
+```Javascript
 public itemList: Array<Object>;
 private name: string;
 ```
 
 The GUI input field component with `[(ngModel)]="name"` will link to the class variable `name` has just been created above. Pass the user input value to the `createPerson` function in Database class:
-```
+```Javascript
 public addPerson(){
   this.database.createPerson(this.name);
 }
 ```
 
 When user clicks *Refresh View*, get a list of all the people's information (only a name in this tutorial) and assign those to `itemList`. Recall that this `itemList` later will be populated onto the *HomePage* screen' list view.
-```
+```Javascript
 public refreshView(){
   this.database.getPeople()
   .then( (result) => {
@@ -169,7 +169,7 @@ Source file: src/providers/database.ts
 
 As seen in the previous section, the *HomePage* will invoke two functions of the *Database* class upon user's interaction. Below are the definitions.
 
-```
+```Javascript
 public createPerson(name: string){
   return new Promise( (resolve, reject) => {
       var querry = "INSERT INTO People (name) VALUES (\'" + name + "\')";
