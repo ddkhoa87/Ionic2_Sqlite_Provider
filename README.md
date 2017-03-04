@@ -129,10 +129,10 @@ It then needs two buttons for adding the new name to database and refreshing the
 </div>
 ```
 Finally, all the names in database will need to be distributed into a list view. Assume that `itemList` is an array of *person* objects having a single information which is its name.
-```javascript
+```html
 <ion-list>
   <ion-item *ngFor="let person of itemList">
-    {{person.name}}
+    \{{person.name}}
   </ion-item>
 </ion-list>
 ```
