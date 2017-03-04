@@ -71,7 +71,8 @@ platform.ready()
     });
 });
 ```
-The SQLite code is straightforward and self-explaining. The `.then( (*some_variable*) => {*some_code*} );` is actually an anonymous function (or lambda abstraction in some languages) nested inside a *promise-based* syntax `.then(*do_something*);`. This is for dealing with asynchronicity in Javascript. Refer to other sources for more detail. [This post](http://blog.rangle.io/the-art-of-promise-based-architecture/) is also a good start.
+
+This SQLite code is straightforward and self-explaining. The `.then( (*some_variable*) => {*some_code*} );` is actually an anonymous function (or lambda abstraction in some languages) nested inside a *promise-based* syntax `.then(*do_something*);`. This is for dealing with asynchronicity in Javascript. Refer to other sources for more detail. [This post](http://blog.rangle.io/the-art-of-promise-based-architecture/) is also a good start.
 
 ### Initializing ***app.module***
 
@@ -82,14 +83,14 @@ The *src/app/app.module.ts* is like a management center for all modules being us
 import { Database } from "../providers/database";
 ```
 and the category of it. In this case, our *Database* class is a provider:
-```Javascript
+```
 providers: [Database, *other providers*]
 ```
 Note that the relative path to the source file omits *.ts*. Ionic 2 would know all the code are in *type-script*.
 
 ### Initializing ***HomePage***
 
-Our *HomePage* receives the name from user input and insert into database. Once the user clicks the Refresh View button, data retrieved from database will be listed on the screen for viewing. So, obviously, the *HomePage* needs to know the class providing this storage service and its source file location in the *src/pages/home/home.ts*:
+Our *HomePage* receives the name from user input and inserts into database. Once the user clicks the *Refresh View* button, data retrieved from database will be listed on the screen. Obviously, the *HomePage* needs to know the class providing this storage service and its source file location in the *src/pages/home/home.ts*:
 
 <img src="photos/home2provider.png" alt="Referring to database from home." width="20%" height="20%L"/>
 ```Javascript
@@ -99,19 +100,19 @@ Create and object and call the *Database*'s constructor through the *HomePage*'s
 ```Javascript
 constructor(public navCtrl: NavController, private database: Database)
 ```
-Save all changes have been made so far and take a look at the console window. The SQLite service provider would print some log information if it is able to star properly.
+Save all changes have been made so far and take a look at the console window. The SQLite service provider would print some log information if it is able to start properly.
 
 <img src="photos/consolelog.png" alt="Referring to database from app." width="40%" height="40%"/>
 
 ### And the rest
 
-Up to this point, this post has gone through the major changes. The rest is similar to what it used to be. I will keep it brief just to make it completed.
+Up to this point, we have gone through all major differences. The rest is similar to what it used to be. I will keep it brief just to make this tutorial completed.
 
 #### Adding GUI components to the *HomePage*
 
-Source file: src/pages/home/home.html
+Source file: *src/pages/home/home.html*
 
-On the *HomePage* screen, use will type a name into an input field, the *HomePage* maintains a link between this input field and its variable.
+On the *HomePage* screen, use will type a name into an input field, the *HomePage* maintains a link between this input field and its variable `name`.
 ```html
 <ion-item>
   <ion-label floating>Name</ion-label>
@@ -127,7 +128,7 @@ It then needs two buttons for adding the new name to database and refreshing the
   </ion-segment>
 </div>
 ```
-Finally, all the names are distributed into a list view. Assume that `itemList` is an array of *person* objects having a single information which is its name.
+Finally, all the names in database will need to be distributed into a list view. Assume that `itemList` is an array of *person* objects having a single information which is its name.
 ```html
 <ion-list>
   <ion-item *ngFor="let person of itemList">
@@ -138,7 +139,7 @@ Finally, all the names are distributed into a list view. Assume that `itemList` 
 
 #### Linking *HomePage* GUI components to class variables and methods
 
-Source file: src/pages/home/home.ts
+Source file: *src/pages/home/home.ts*
 
 Declare two variables for holding a name from user input and a list of names retrieved from database.
 ```Javascript
@@ -153,7 +154,7 @@ public addPerson(){
 }
 ```
 
-When user clicks *Refresh View*, get a list of all the people's information (only a name in this tutorial) and assign those to `itemList`. Recall that this `itemList` later will be populated onto the *HomePage* screen' list view.
+When user clicks *Refresh View*, get a list of all the people's information (only a name in this tutorial) and assign those to `itemList`. Recall that this `itemList` later will be populated onto the *HomePage* screen's list view.
 ```Javascript
 public refreshView(){
   this.database.getPeople()
@@ -165,7 +166,7 @@ public refreshView(){
 
 #### Completing the database storage provider
 
-Source file: src/providers/database.ts
+Source file: *src/providers/database.ts*
 
 As seen in the previous section, the *HomePage* will invoke two functions of the *Database* class upon user's interaction. Below are the definitions.
 
@@ -205,6 +206,6 @@ public getPeople(){
 
 ### Wrapping up
 
-This post is to provide another tutorial on SQLite storage provider in Ionic 2 with its new project structure. While this framework has been exploding with major updates, many tutorials are made deprecated. I have seen myself and some others struggled with all the mixing of Ionic 2 styles and try them all but nothing works, and the real solutions are just mentioned somewhere in the comments. This is just some effort to put them together.
+This post is to provide another tutorial on SQLite storage provider in Ionic 2 with its new project structure. While this framework has been exploding with major updates, many tutorials are made deprecated. I have seen myself and some others struggled with all the mixing of Ionic 2 styles and try them all but nothing works. And the real solutions are just mentioned somewhere in the comments. This is just some effort to put them together.
 
-Hope this will help!!!
+Hope this helps!!!
