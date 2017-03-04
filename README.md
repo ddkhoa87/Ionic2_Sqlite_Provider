@@ -29,7 +29,7 @@ Generate a provider class by this command `ionic -g provider <class_source_file_
 ```
 ionic -g provider database
 ```
-Some sources explain that SQLite has not been supported in ios or android simulation on browser platform. It is recommended to run the emulation so that the SQLite is able to work properly.
+Some sources explain that SQLite has not been supported in ios or android simulation on browser platform. It is recommended to run the emulation so that SQLite is able to work properly.
 ```
 ionic run ios -l -s -c
 ```
@@ -37,7 +37,7 @@ For debugging purpose, indicating `-l -s -c` to output log information onto the 
 
 ### Initializing SQLite Storage
 
-Open the `src\providers\database.ts` nd import neccessary modules:
+Open the `src\providers\database.ts` and import necessary modules:
 ```Javascript
 import { Platform } from 'ionic-angular';
 import { SQLite } from 'ionic-native';
@@ -102,7 +102,7 @@ constructor(public navCtrl: NavController, private database: Database)
 ```
 Save all changes have been made so far and take a look at the console window. The SQLite service provider would print some log information if it is able to start properly.
 
-<img src="photos/consolelog.png" alt="Referring to database from app." width="40%" height="40%"/>
+<img src="photos/consolelog.png" alt="Referring to database from app." width="60%" height="60%"/>
 
 ### And the rest
 
