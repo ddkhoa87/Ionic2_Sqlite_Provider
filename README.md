@@ -7,7 +7,7 @@ Recently, Ionic 2 has re-organized its project structure. All the source code ar
 - ***pages***: Each page is equivalent to a screen that users will see when using the app on mobile phone. Users can navigate back and forth among pages.
 - ***providers***: Event handlers, error handlers, database... which handle underlying processes that users won't see on the phone.
 
-For simplicity, this tutorial demonstrates with an one-page app having a button for adding a name from an input field into a database (Sqlite storage) and another button for refreshing the view to reflect the new update.
+For simplicity, this tutorial demonstrates with an one-page app having a button for adding a name from an input field into a database (SQLite storage) and another button for refreshing the view to reflect the new update.
 
 <img src="photos/homepage.png" width="40%" height="40%"/>
 
@@ -23,7 +23,7 @@ To add SQLite plugin into the project:
 ```
 ionic plugin add cordova-sqlite-storage
 ```
-We are planning to use SQLite as a *provider*. A provider is just a class, but not something users can see on the screen. A class handling what can be seen and interacted is called a *page*. A class providing additional underlying support such as database storage, error or event handling is listed as providers, or a service provider.
+We are planning to use SQLite as a *provider*. A provider is just a class, but not something users can see on the screen. A class handling what can be seen and interacted is called a *page*. A class providing additional underlying support such as database storage, error or event handling is listed as providers, or service providers.
 
 Generate a provider class by this command `ionic -g provider <class_source_file_name>`. I will name this file as *database*, for example, and its class inside will be auto-generated as *class Database* subsequently:
 ```
@@ -83,7 +83,7 @@ The *src/app/app.module.ts* is like a management center for all modules being us
 import { Database } from "../providers/database";
 ```
 and the category of it. In this case, our *Database* class is a provider:
-```
+```javascript
 providers: [Database, *other providers*]
 ```
 Note that the relative path to the source file omits *.ts*. Ionic 2 would know all the code are in *type-script*.
@@ -112,14 +112,14 @@ Up to this point, we have gone through all major changes need to be made. The re
 
 Source file: *src/pages/home/home.html*
 
-On the *HomePage* screen, user will type a name into an input field, the *HomePage* maintains a link between this input field and its variable `name`.
+On the *HomePage* screen, user will type a name into an input field. The *HomePage* maintains a link between this input field and its variable `name`.
 ```html
 <ion-item>
   <ion-label floating>Name</ion-label>
   <ion-input type="text" [(ngModel)]="name"></ion-input>
 </ion-item>
 ```
-It then needs two buttons for adding the new name to database and refreshing the view. These two buttons link to corresponding button-click event handling methods.
+It then needs two buttons for adding the new name to database and refreshing the view. These two buttons link to corresponding button-click event handlers.
 ```html
 <div padding>
   <ion-segment>
@@ -129,7 +129,7 @@ It then needs two buttons for adding the new name to database and refreshing the
 </div>
 ```
 Finally, all the names in database will need to be distributed into a list view. Assume that `itemList` is an array of *person* objects having a single information which is its name.
-```html
+```javascript
 <ion-list>
   <ion-item *ngFor="let person of itemList">
     {{person.name}}
