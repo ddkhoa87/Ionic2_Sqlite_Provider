@@ -95,11 +95,116 @@ Our *HomePage* receives the name from user input and insert into database. Once 
 ```
 import { Database } from "../../providers/database";
 ```
-Call the constructor of the *Database* class through the *HomePage*'s constructor.
+Create and object and call the *Database*'s constructor through the *HomePage*'s constructor.
 ```
 constructor(public navCtrl: NavController, private database: Database)
 ```
-Up to this point, save all changes have been made so far and take a look at the console window. The SQLite service provider would print some log information if it is able to star properly.
+Save all changes have been made so far and take a look at the console window. The SQLite service provider would print some log information if it is able to star properly.
+
 <img src="photos/consolelog.png" alt="Referring to database from app." width="20%" height="20%"/>
 
 ### And the rest
+
+Up to this point, this post has gone through the major changes. The rest is similar to what it used to be. I will keep it brief just to make it completed.
+
+#### Adding GUI components to the *HomePage*
+
+Source file: src/pages/home/home.html
+
+On the *HomePage* screen, use will type a name into an input field, the *HomePage* maintains a link between this input field and its variable.
+```
+<ion-item>
+  <ion-label floating>Name</ion-label>
+  <ion-input type="text" [(ngModel)]="name"></ion-input>
+</ion-item>
+```
+It then needs two buttons for adding the new name to database and refreshing the view. These two buttons link to corresponding button-click event handling methods.
+```
+<div padding>
+  <ion-segment>
+    <ion-segment-button (click)="addPerson()">Add</ion-segment-button>
+    <ion-segment-button (click)="refreshView()">Refresh View</ion-segment-button>
+  </ion-segment>
+</div>
+```
+Finally, all the names are distributed into a list view. Assume that `itemList` is an array of *person* objects having a single information which is its name.
+```
+<ion-list>
+  <ion-item *ngFor="let person of itemList">
+    {{person.name}}
+  </ion-item>
+</ion-list>
+```
+
+#### Linking *HomePage* GUI components to class variables and methods
+
+Source file: src/pages/home/home.ts
+
+Declare two variables for holding a name from user input and a list of names retrieved from database.
+```
+public itemList: Array<Object>;
+private name: string;
+```
+
+The GUI input field component with `[(ngModel)]="name"` will link to the class variable `name` has just been created above. Pass the user input value to the `createPerson` function in Database class:
+```
+public addPerson(){
+  this.database.createPerson(this.name);
+}
+```
+
+When user clicks *Refresh View*, get a list of all the people's information (only a name in this tutorial) and assign those to `itemList`. Recall that this `itemList` later will be populated onto the *HomePage* screen' list view.
+```
+public refreshView(){
+  this.database.getPeople()
+  .then( (result) => {
+    this.itemList = <Array<Object>> result;
+  });
+}
+```
+
+#### Completing the database storage provider
+
+Source file: src/providers/database.ts
+
+As seen in the previous section, the *HomePage* will invoke two functions of the *Database* class upon user's interaction. Below are the definitions.
+
+```
+public createPerson(name: string){
+  return new Promise( (resolve, reject) => {
+      var querry = "INSERT INTO People (name) VALUES (\'" + name + "\')";
+      this.storage.executeSql(querry, {})
+      .then( (data) => {
+          resolve(data);
+      }, (error) => {
+          reject(error);
+      });
+  });
+}
+
+public getPeople(){
+  return new Promise ( (resolve, reject) => {
+    let people = [];
+    this.storage.executeSql("SELECT * FROM People",{})
+    .then( (data) => {
+        if (data.rows.length > 0){
+            for (let i = 0; i < data.rows.length; i++) {
+                people.push( {
+                  id: data.rows.item(i).id,
+                  name: data.rows.item(i).name
+                });
+            }
+        }
+        resolve(people);
+    }, (error) =>{
+        reject(error);
+    });
+  });
+}
+```
+
+### Wrapping up
+
+This post is to provide another tutorial on SQLite storage provider in Ionic 2 with its new project structure. While this framework has been exploding with major updates, many tutorials are made deprecated. I have seen myself and some others struggled with all the mixing of Ionic 2 styles and try them all but nothing works, and the real solutions are just mentioned somewhere in the comments. This is just some effort to put them together.
+
+Hope this will help!!!
