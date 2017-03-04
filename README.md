@@ -72,7 +72,7 @@ platform.ready()
 });
 ```
 
-This SQLite code is straightforward and self-explaining. The `.then( (*some_variable*) => {*some_code*} );` is actually an anonymous function (or lambda abstraction in some languages) nested inside a *promise-based* syntax `.then(*do_something*);`. This is for dealing with asynchronicity in Javascript. Refer to other sources for more detail. [This post](http://blog.rangle.io/the-art-of-promise-based-architecture/) is also a good start.
+This SQLite code is straightforward and self-explaining. The `.then( (`*some_variable*`) => {`*some_code*`} );` is actually an anonymous function (or lambda abstraction in some languages) nested inside a *promise-based* syntax `.then(`*do_something*`);`. This is for dealing with asynchronicity in Javascript. Refer to other sources for more detail. [This post](http://blog.rangle.io/the-art-of-promise-based-architecture/) is also a good start.
 
 ### Initializing ***app.module***
 
