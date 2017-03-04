@@ -38,22 +38,22 @@ For debugging purpose, indicating `-l -s -c` to output log information onto the 
 ### Initializing SQLite Storage
 
 Open the `src\providers\database.ts` and import necessary modules:
-```Javascript
+```javascript
 import { Platform } from 'ionic-angular';
 import { SQLite } from 'ionic-native';
 ```
 *SQLite* is of course a must-have. The *Platform* is required for checking the readiness before opening a database for further access.
 
 Declare a new SQLite storage variable:
-```Javascript
+```javascript
 private storage : SQLite;
 ```
 Supply an additional parameter `platform: Platform` to the constructor:
-```Javascript
+```javascript
 constructor(public http: Http, platform: Platform)
 ```
 Make sure the platform is ready beforehand:
-```Javascript
+```javascript
 platform.ready()
 .then(() => {
     this.storage = new SQLite();
@@ -79,7 +79,7 @@ This SQLite code is straightforward and self-explaining. The `.then( (*some_vari
 The *src/app/app.module.ts* is like a management center for all modules being used in a project. Hence, it should know where the source code for a module is:
 
 <img src="photos/app2provider.png" alt="Referring to database from app." width="20%" height="20%"/>
-```Javascript
+```javascript
 import { Database } from "../providers/database";
 ```
 and the category of it. In this case, our *Database* class is a provider:
@@ -93,11 +93,11 @@ Note that the relative path to the source file omits *.ts*. Ionic 2 would know a
 Our *HomePage* receives the name from user input and inserts into database. Once the user clicks the *Refresh View* button, data retrieved from database will be listed on the screen. Obviously, the *HomePage* needs to know the class providing this storage service and its source file location in the *src/pages/home/home.ts*:
 
 <img src="photos/home2provider.png" alt="Referring to database from home." width="20%" height="20%L"/>
-```Javascript
+```javascript
 import { Database } from "../../providers/database";
 ```
 Create an object and call the *Database*'s constructor through the *HomePage*'s constructor.
-```Javascript
+```javascript
 constructor(public navCtrl: NavController, private database: Database)
 ```
 Save all changes have been made so far and take a look at the console window. The SQLite service provider would print some log information if it is able to start properly.
@@ -148,14 +148,14 @@ private name: string;
 ```
 
 The GUI input field component with `[(ngModel)]="name"` will link to the class variable `name` has just been created above. Pass the user input value to the `createPerson` function in Database class:
-```Javascript
+```javascript
 public addPerson(){
   this.database.createPerson(this.name);
 }
 ```
 
 When user clicks *Refresh View*, get a list of all the people's information (only a name in this tutorial) and assign those to `itemList`. Recall that this `itemList` later will be populated onto the *HomePage* screen's list view.
-```Javascript
+```javascript
 public refreshView(){
   this.database.getPeople()
   .then( (result) => {
@@ -170,7 +170,7 @@ Source file: *src/providers/database.ts*
 
 As seen in the previous section, the *HomePage* will invoke two functions of the *Database* class upon user's interaction. Below are the definitions.
 
-```Javascript
+```javascript
 public createPerson(name: string){
   return new Promise( (resolve, reject) => {
       var querry = "INSERT INTO People (name) VALUES (\'" + name + "\')";
