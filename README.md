@@ -1,7 +1,7 @@
 ### Overview
 Recently, Ionic 2 has re-organized its project structure. All the source code are relocated into the *src/* folder. In this folder, there are ***app***, ***pages*** and ***providers*** sub-folders:
 
-<img src="photos/overview.png" alt="New project structure." width=15% height=15%/>
+<img src="photos/overview.png" alt="New project structure."/>
 
 - ***app***: Listing of user-created and system-defined components. A component is similar to a class or package in other languages.
 - ***pages***: Each page is equivalent to a screen users will see when using the app on mobile phone. Users can navigate back and forth among pages.
