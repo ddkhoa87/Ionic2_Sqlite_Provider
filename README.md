@@ -101,7 +101,7 @@ constructor(public navCtrl: NavController, private database: Database)
 ```
 Save all changes have been made so far and take a look at the console window. The SQLite service provider would print some log information if it is able to star properly.
 
-<img src="photos/consolelog.png" alt="Referring to database from app." width="20%" height="20%"/>
+<img src="photos/consolelog.png" alt="Referring to database from app." width="40%" height="40%"/>
 
 ### And the rest
 
