@@ -10,15 +10,17 @@ import {Database} from "../../providers/database";
 export class HomePage {
 
   public itemList: Array<Object>;
+  private name: string;
 
   constructor(public navCtrl: NavController, private database: Database) {
     console.log('HomePage constructor');
+    this.name = '';
   }
 
-  public addPerson(name: string){
-    let logText = 'Adding person: ' + name;
+  public addPerson(){
+    let logText = 'Adding person: ' + this.name;
     console.log(logText);
-    this.database.createPerson(name);
+    this.database.createPerson(this.name);
   }
 
   public refreshView(){
