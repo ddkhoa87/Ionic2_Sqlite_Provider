@@ -1,5 +1,5 @@
 theme: jekyll-theme-tactile
-title: Sqlite Provider in the new Ionic 2 framework.
+title: SQLite Provider in the new Ionic 2 framework.
 description: The new look of Ionic 2 has the project structure re-organized. There are plenty of posts showing how to integrate SQLite provider but not updated for this new structure. This project is a simple tutorial on this subject.
 markdown: kramdown
 highlighter: rouge
