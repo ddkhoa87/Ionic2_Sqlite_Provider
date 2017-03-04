@@ -1,7 +1,7 @@
 ### Overview
 Recently, Ionic 2 has re-organized its project structure. All the source code are relocated into the *src/* folder. In this folder, there are ***app***, ***pages*** and ***providers*** sub-folders:
 
-<img src="photos/overview.png" alt="New project structure." width="15%" height="15%"/>
+<img src="photos/overview.png" alt="New project structure." width="20%" height="20%"/>
 
 - ***app***: Listing of user-created and system-defined components. A component is similar to a class or package in other languages.
 - ***pages***: Each page is equivalent to a screen users will see when using the app on mobile phone. Users can navigate back and forth among pages.
@@ -9,7 +9,7 @@ Recently, Ionic 2 has re-organized its project structure. All the source code ar
 
 For simplicity, this tutorial demonstrates with an one-page app having a button for adding a name from an input field into the database (Sqlite storage) and another button for refreshing the view to reflect the new update.
 
-<img src="photos/homepage.png" width=40% height=40%/>
+<img src="photos/homepage.png" width="40%" height="40%"/>
 
 ### Starting with a blank Ionic 2 project
 
@@ -77,7 +77,7 @@ The SQLite code is straightforward and self-explaining. The `.then( (*some_varia
 
 The *src/app/app.module.ts* is like a management center for all modules being used in a project. Hence, it should know where the source code for a module is:
 
-<img src="photos/app2provider.png" alt="Referring to database from app." width=15% height=15%/>
+<img src="photos/app2provider.png" alt="Referring to database from app." width="20%" height="20%"/>
 ```
 import { Database } from "../providers/database";
 ```
@@ -87,13 +87,19 @@ providers: [Database, *other providers*]
 ```
 Note that the relative path to the source file omits *.ts*. Ionic 2 would know all the code are in *type-script*.
 
-### Initializing ***home*** page
+### Initializing ***HomePage***
 
-Our *home* page will take the name from user input and insert into database. Once the user clicks the Refresh View button, data retrieved from database will be listed on the screen for viewing. So, obviously, the *home* page needs to know the class providing this storage service and its source file location in the *src/pages/home/home.ts*:
+Our *HomePage* receives the name from user input and insert into database. Once the user clicks the Refresh View button, data retrieved from database will be listed on the screen for viewing. So, obviously, the *HomePage* needs to know the class providing this storage service and its source file location in the *src/pages/home/home.ts*:
 
-<img src="photos/home2provider.png" alt="Referring to database from home." width=15% height=15%/>
+<img src="photos/home2provider.png" alt="Referring to database from home." width="20%" height="20%L"/>
 ```
 import { Database } from "../../providers/database";
 ```
+Call the constructor of the *Database* class through the *HomePage*'s constructor.
+```
+constructor(public navCtrl: NavController, private database: Database)
+```
+Up to this point, save all changes have been made so far and take a look at the console window. The SQLite service provider would print some log information if it is able to star properly.
+<img src="photos/consolelog.png" alt="Referring to database from app." width="20%" height="20%"/>
 
 ### And the rest
