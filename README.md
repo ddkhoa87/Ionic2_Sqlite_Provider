@@ -25,9 +25,9 @@ ionic plugin add cordova-sqlite-storage
 ```
 We are planning to use SQLite as a *provider*. A provider is just a class, but not something users can see on the screen. A class handling what can be seen and interacted is called a *page*. A class providing additional underlying support such as database storage, error or event handling is listed as providers, or service providers.
 
-Generate a provider class by this command `ionic -g provider <class_source_file_name>`. I will name this file as *database*, for example, and its class inside will be auto-generated as *class Database* subsequently:
+Generate a provider class by this command `ionic g provider <class_source_file_name>`. I will name this file as *database*, for example, and its class inside will be auto-generated as *class Database* subsequently:
 ```
-ionic -g provider database
+ionic g provider database
 ```
 Some sources explain that SQLite has not been supported in ios or android simulation on browser platform. It is recommended to run the emulation so that SQLite is able to work properly.
 ```
